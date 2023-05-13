@@ -20,29 +20,28 @@
 
 ## 项目简介
 
-CollectX-Display-System是一个基于Vue3.0的前端项目，用于展示用户问卷的数据。
-
+CollectX-Display-System 是一个基于 Vue3.0 的前端项目，用于展示用户问卷的数据。
 
  <h2>内容列表</h2>
 
-- [CollectX-Display-System](#collectx-display-system)
-  - [项目简介](#项目简介)
-  - [Git 规范](#git-规范)
-    - [Git 分支命名](#git-分支命名)
-  - [Git Commit Message 格式](#git-commit-message-格式)
-    - [type 提交类型：](#type-提交类型)
-    - [subject 提交描述](#subject-提交描述)
-  - [项目现阶段预览](#项目现阶段预览)
-  - [相关仓库](#相关仓库)
-  - [维护者](#维护者)
-  - [如何贡献](#如何贡献)
-    - [贡献者](#贡献者)
-  - [快速上手](#快速上手)
-    - [特别感谢：](#特别感谢)
-  - [使用许可](#使用许可)
-
+-   [CollectX-Display-System](#collectx-display-system)
+    -   [项目简介](#项目简介)
+    -   [Git 规范](#git-规范)
+        -   [Git 分支命名](#git-分支命名)
+    -   [Git Commit Message 格式](#git-commit-message-格式)
+        -   [type 提交类型：](#type-提交类型)
+        -   [subject 提交描述](#subject-提交描述)
+    -   [项目现阶段预览](#项目现阶段预览)
+    -   [相关仓库](#相关仓库)
+    -   [维护者](#维护者)
+    -   [如何贡献](#如何贡献)
+        -   [贡献者](#贡献者)
+    -   [快速上手](#快速上手)
+        -   [特别感谢：](#特别感谢)
+    -   [使用许可](#使用许可)
 
 ---
+
 ## Git 规范
 
 ### Git 分支命名
@@ -84,7 +83,7 @@ CollectX-Display-System是一个基于Vue3.0的前端项目，用于展示用户
 ## 相关仓库
 
 -   [Rosy-DR-Code-Ling](https://github.com/School-of-Website-Engineering/Rosy-DR-Code-Ling) — 💌 Rosy-DR-Code-Ling 的 Web 页面
--   
+-
 
 ## 维护者
 
