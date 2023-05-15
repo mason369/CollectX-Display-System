@@ -14,7 +14,7 @@ app.use(bodyParser.json());
  * @apiGroup Survey 问卷调查
  * @apiVersion 0.1.1
  */
-app.post('/survey', async(req: Request, res: Response<Res>) => {
+app.post('/survey', async (req: Request, res: Response<Res>) => {
     const { name, age, gender, surveyResult } = req.body;
     if (!name || !age || !gender || !surveyResult) {
         // 如果请求参数不完整，则返回错误信息
@@ -32,7 +32,7 @@ app.post('/survey', async(req: Request, res: Response<Res>) => {
  * @apiGroup Survey 问卷调查
  * @apiVersion 0.1.0
  */
-app.get('/survey', async(_req: Request, res: Response<Res>) => {
+app.get('/survey', async (_req: Request, res: Response<Res>) => {
     const data = await survey.list(); // 查询数据
     console.log(`查询到 ${data.data.length} 条问卷调查数据`); // 控制台输出提示信息
     res.json(data);
@@ -44,7 +44,7 @@ app.get('/survey', async(_req: Request, res: Response<Res>) => {
  * @apiGroup Survey 问卷调查
  * @apiVersion 0.1.0
  */
-app.get('/survey/:id', async(req: Request, res: Response<Res>) => {
+app.get('/survey/:id', async (req: Request, res: Response<Res>) => {
     const data = await survey.findById(req.params.id); // 根据 ID 查询数据
     console.log(`查询问卷调查数据，id 为 ${req.params.id}`); // 控制台输出提示信息
     res.status(data.code).json(data);
