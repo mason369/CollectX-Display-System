@@ -43,9 +43,9 @@ class Survey {
         await this.store.save(newData);
         console.log(`已将问卷调查数据 ${JSON.stringify(newData)} 保存至文件`); // 控制台输出提示信息
         return {
-            code   : 0,
+            code: 0,
             message: '提交成功',
-            data   : newData
+            data: newData,
         };
     }
 
@@ -59,9 +59,9 @@ class Survey {
         const data = await this.store.read(); // 从数据存储对象中读取数据
         console.log(`查询到 ${data.length} 条问卷调查数据`); // 控制台输出提示信息
         return {
-            code   : 0,
+            code: 0,
             message: '查询成功',
-            data   : data.sort((a, b) => b.createdAt - a.createdAt) // 根据创建时间倒序排序
+            data: data.sort((a, b) => b.createdAt - a.createdAt), // 根据创建时间倒序排序
         };
     }
 
@@ -77,16 +77,16 @@ class Survey {
         if (result) {
             console.log(`查询问卷调查数据，id 为 ${id} 的数据存在`); // 控制台输出提示信息
             return {
-                code   : 0,
+                code: 0,
                 message: '查询成功',
-                data   : result
+                data: result,
             };
         } else {
             console.log(`查询问卷调查数据，id 为 ${id} 的数据不存在`); // 控制台输出提示信息
             return {
-                code   : 404,
+                code: 404,
                 message: '数据不存在',
-                data   : undefined
+                data: undefined,
             };
         }
     }
