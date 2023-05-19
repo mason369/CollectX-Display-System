@@ -41,15 +41,15 @@ class Survey {
     async save(data: Omit<SurveyData, 'id' | 'createdAt'>): Promise<Response<SurveyData>> {
         const newData: SurveyData = {
             ...data,
-            id       : uuidv4(),
-            createdAt: Date.now()
+            id: uuidv4(),
+            createdAt: Date.now(),
         }; // 生成新数据并保存
         await this.store.save(newData);
         console.log(`已将问卷调查数据 ${JSON.stringify(newData)} 保存至文件`); // 控制台输出提示信息
         return {
-            code   : 0,
+            code: 0,
             message: '提交成功',
-            data   : newData
+            data: newData,
         };
     }
 
@@ -63,9 +63,9 @@ class Survey {
         const data = await this.store.read(); // 从数据存储对象中读取数据
         console.log(`查询到 ${data.length} 条问卷调查数据`); // 控制台输出提示信息
         return {
-            code   : 0,
+            code: 0,
             message: '查询成功',
-            data   : data.sort((a, b) => b.createdAt - a.createdAt) // 根据创建时间倒序排序
+            data: data.sort((a, b) => b.createdAt - a.createdAt), // 根据创建时间倒序排序
         };
     }
 
@@ -81,16 +81,16 @@ class Survey {
         if (result) {
             console.log(`查询问卷调查数据，id 为 ${id} 的数据存在`); // 控制台输出提示信息
             return {
-                code   : 0,
+                code: 0,
                 message: '查询成功',
-                data   : result
+                data: result,
             };
         } else {
             console.log(`查询问卷调查数据，id 为 ${id} 的数据不存在`); // 控制台输出提示信息
             return {
-                code   : 404,
+                code: 404,
                 message: '数据不存在',
-                data   : undefined
+                data: undefined,
             };
         }
     }
@@ -105,15 +105,15 @@ class Survey {
         console.log(`查询到 ${questions.length} 条问题`);
         if (questions.length === 0) {
             return {
-                code   : 404,
+                code: 404,
                 message: '无法获取问题列表，请检查用户名是否正确，或者是否已经设置调查问卷问题',
-                data   : []
+                data: [],
             };
         }
         return {
-            code   : 0,
+            code: 0,
             message: '查询成功',
-            data   : questions
+            data: questions,
         };
     }
 
@@ -127,16 +127,16 @@ class Survey {
         const data = (await this.store.querySurveyData(surveyName, userName)) as any;
         if (!data) {
             return {
-                code   : 404,
+                code: 404,
                 message: '数据不存在,请检查调查问卷名称',
-                data   : []
+                data: [],
             };
         }
         console.log(`查询${surveyName}调查问卷数据，共${data.questions.length}条`);
         return {
-            code   : 0,
+            code: 0,
             message: '查询成功',
-            data
+            data,
         };
     }
 
@@ -151,14 +151,14 @@ class Survey {
     async setQuestions(questions: any[], surveyName: string, userName: string): Promise<Response> {
         if (!questions || !Array.isArray(questions)) {
             return {
-                code   : 400,
+                code: 400,
                 message: '参数错误',
-                data   : null
+                data: null,
             };
         }
         const data = await this.store.saveQuestions(questions, surveyName, userName);
         return {
-            ...data
+            ...data,
         };
     }
 
@@ -172,14 +172,14 @@ class Survey {
     async submitAnswers(surveyName: string, userName: string, questionsForm: string): Promise<Response> {
         if (!questionsForm || !Array.isArray(questionsForm)) {
             return {
-                code   : 400,
+                code: 400,
                 message: '参数错误',
-                data   : null
+                data: null,
             };
         }
         const data = await this.store.saveAnswers(questionsForm, surveyName, userName);
         return {
-            ...data
+            ...data,
         };
     }
 }
