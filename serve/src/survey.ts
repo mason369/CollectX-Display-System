@@ -27,7 +27,7 @@ interface SurveyData {
  * 问卷调查相关的数据操作
  */
 class Survey {
-    store: Store;
+    store: Store; // Store 类的实例
 
     constructor() {
         this.store = new Store(path.resolve(__dirname, 'data/survey.json')); // 创建数据存储对象
@@ -39,7 +39,11 @@ class Survey {
      * @returns 保存成功的问卷调查数据
      */
     async save(data: Omit<SurveyData, 'id' | 'createdAt'>): Promise<Response<SurveyData>> {
-        const newData: SurveyData = { ...data, id: uuidv4(), createdAt: Date.now() }; // 生成新数据并保存
+        const newData: SurveyData = {
+            ...data,
+            id       : uuidv4(),
+            createdAt: Date.now()
+        }; // 生成新数据并保存
         await this.store.save(newData);
         console.log(`已将问卷调查数据 ${JSON.stringify(newData)} 保存至文件`); // 控制台输出提示信息
         return {
@@ -90,7 +94,95 @@ class Survey {
             };
         }
     }
+
+    /**
+     * 查询调查问卷问题列表
+     * @param userName 用户名
+     * @returns 返回问题列表
+     */
+    async getQuestions(userName: string): Promise<Response<any[]>> {
+        const questions = await this.store.readQuestions(userName);
+        console.log(`查询到 ${questions.length} 条问题`);
+        if (questions.length === 0) {
+            return {
+                code   : 404,
+                message: '无法获取问题列表，请检查用户名是否正确，或者是否已经设置调查问卷问题',
+                data   : []
+            };
+        }
+        return {
+            code   : 0,
+            message: '查询成功',
+            data   : questions
+        };
+    }
+
+    /**
+     * 查询调查问卷数据列表
+     * @param surveyName 调查问卷名称
+     * @param userName 用户名
+     * @returns 返回数据列表
+     */
+    async querySurveyData(surveyName: string, userName: string): Promise<Response<any[]>> {
+        const data = (await this.store.querySurveyData(surveyName, userName)) as any;
+        if (!data) {
+            return {
+                code   : 404,
+                message: '数据不存在,请检查调查问卷名称',
+                data   : []
+            };
+        }
+        console.log(`查询${surveyName}调查问卷数据，共${data.questions.length}条`);
+        return {
+            code   : 0,
+            message: '查询成功',
+            data
+        };
+    }
+
+    /**
+     * 设置调查问卷问题
+     * @param questions 调查问卷问题
+     * @param surveyName 调查问卷名称
+     * @param userName 用户名
+     * @returns 返回成功信息
+     * @example await survey.setQuestions(['问题1', '问题2'], 'survey1');
+     */
+    async setQuestions(questions: any[], surveyName: string, userName: string): Promise<Response> {
+        if (!questions || !Array.isArray(questions)) {
+            return {
+                code   : 400,
+                message: '参数错误',
+                data   : null
+            };
+        }
+        const data = await this.store.saveQuestions(questions, surveyName, userName);
+        return {
+            ...data
+        };
+    }
+
+    /**
+     * 提交问卷调查答案
+     * userName, surveyName, form
+     * @param questionsForm 问卷调查答案
+     * @param surveyName 调查问卷名称
+     * @param userName 用户名
+     */
+    async submitAnswers(surveyName: string, userName: string, questionsForm: string): Promise<Response> {
+        if (!questionsForm || !Array.isArray(questionsForm)) {
+            return {
+                code   : 400,
+                message: '参数错误',
+                data   : null
+            };
+        }
+        const data = await this.store.saveAnswers(questionsForm, surveyName, userName);
+        return {
+            ...data
+        };
+    }
 }
 
-export default new Survey();
+export const survey = new Survey();
 export { Response };
