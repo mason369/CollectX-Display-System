@@ -152,10 +152,10 @@ class Store {
     public async saveQuestions(questions: string[], surveyName: string, userName: string): Promise<Response> {
         // 设置创建时间与id
         const newQuestion = {
-            id        : uuidv4(),
+            id: uuidv4(),
             createTime: new Date().toISOString(),
             surveyName,
-            questions
+            questions,
         };
         // 根据用户名创建文件夹，文件夹里再创建问题名的文件夹，将问题列表写入文件
         const userDir = path.resolve(__dirname, `data/${userName}`);
@@ -168,9 +168,9 @@ class Store {
         console.log(`已将提问者 ${userName} 的问题列表${surveyName}_question.json保存至 ${filePath} 文件中`);
 
         return {
-            code   : 0,
+            code: 0,
             message: '设置成功，问题列表已更新',
-            data   : newQuestion
+            data: newQuestion,
         };
     }
 
@@ -183,10 +183,10 @@ class Store {
     async saveAnswers(surveyName: string, userName: string, questionsForm: any): Promise<Response> {
         // 设置创建时间与id
         const newAnswer = {
-            id        : uuidv4(),
+            id: uuidv4(),
             createTime: new Date().toISOString(),
             surveyName,
-            questionsForm
+            questionsForm,
         };
         // 根据用户名创建文件夹，文件夹里存放该用户创建的调查问卷
         const userDir = path.resolve(__dirname, `data/${userName}`);
@@ -197,9 +197,9 @@ class Store {
         console.log(`已将回答者 ${userName} 的答案列表${surveyName}_answer.json保存至 ${filePath} 文件中`);
 
         return {
-            code   : 0,
+            code: 0,
             message: '设置成功，答案列表已更新',
-            data   : newAnswer
+            data: newAnswer,
         };
     }
 }

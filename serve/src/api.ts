@@ -13,7 +13,7 @@ app.use(bodyParser.json());
  * @apiGroup Survey 问卷调查
  * @apiVersion 0.1.1
  */
-app.post('/survey', async(req: Request, res: Response<Res>) => {
+app.post('/survey', async (req: Request, res: Response<Res>) => {
     const { name, age, gender, surveyResult } = req.body || {};
     const reqData = [name, age, gender, surveyResult];
     // 判断请求参数是否完整
@@ -33,7 +33,7 @@ app.post('/survey', async(req: Request, res: Response<Res>) => {
  * @apiGroup Survey 问卷调查
  * @apiVersion 0.1.0
  */
-app.get('/survey', async(_req: Request, res: Response<Res>) => {
+app.get('/survey', async (_req: Request, res: Response<Res>) => {
     const data = await survey.list(); // 查询数据
     console.log(`查询到 ${data.data.length} 条问卷调查数据`);
     res.json(data);
@@ -45,7 +45,7 @@ app.get('/survey', async(_req: Request, res: Response<Res>) => {
  * @apiGroup Survey 问卷调查
  * @apiVersion 0.1.0
  */
-app.get('/survey/question/:id', async(req: Request, res: Response<Res>) => {
+app.get('/survey/question/:id', async (req: Request, res: Response<Res>) => {
     const data = await survey.findById(req.params.id); // 根据 ID 查询数据
     console.log(`查询问卷调查数据，id 为 ${req.params.id}`);
     res.status(data.code).json(data);
@@ -57,7 +57,7 @@ app.get('/survey/question/:id', async(req: Request, res: Response<Res>) => {
  * @apiGroup Survey 问卷调查
  * @apiVersion 0.2.0
  */
-app.get('/survey/questions', async(req: Request, res: Response<Res<string[]>>) => {
+app.get('/survey/questions', async (req: Request, res: Response<Res<string[]>>) => {
     const { userName } = req.query || {};
     const result = await survey.getQuestions(userName as string);
     res.json(result);
@@ -73,7 +73,7 @@ app.get('/survey/questions', async(req: Request, res: Response<Res<string[]>>) =
  *   "userName": "张三"
  *}
  */
-app.get('/survey/data', async(req: Request, res: Response<Res<any[]>>) => {
+app.get('/survey/data', async (req: Request, res: Response<Res<any[]>>) => {
     const { surveyName, userName } = req.query || {};
     const result = await survey.querySurveyData(surveyName as string, userName as string);
     res.json(result);
@@ -94,7 +94,7 @@ app.get('/survey/data', async(req: Request, res: Response<Res<any[]>>) => {
  *    "userName": "张三"
  * }
  */
-app.post('/survey/questions', async(req: Request, res: Response<Res>) => {
+app.post('/survey/questions', async (req: Request, res: Response<Res>) => {
     const { questions, surveyName, userName } = req.body || {};
     const result = await survey.setQuestions(questions, surveyName, userName);
     res.json(result);
@@ -119,7 +119,7 @@ app.post('/survey/questions', async(req: Request, res: Response<Res>) => {
  *    }
  *]
  */
-app.post('/survey/answer', async(req: Request, res: Response<Res>) => {
+app.post('/survey/answer', async (req: Request, res: Response<Res>) => {
     const { userName, surveyName, questionsForm } = req.body || {};
     const result = await survey.submitAnswers(userName, surveyName, questionsForm);
     res.json(result);
